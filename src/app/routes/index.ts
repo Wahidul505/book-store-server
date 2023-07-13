@@ -1,12 +1,12 @@
 import express from 'express';
-import { ProductRoutes } from '../modules/product/product.route';
+import { BookRoutes } from '../modules/book/book.route';
 
 const router = express.Router();
 
 const moduleRoutes = [
   {
-    path: '/products',
-    route: ProductRoutes,
+    path: '/books',
+    route: BookRoutes,
   },
 ];
 
