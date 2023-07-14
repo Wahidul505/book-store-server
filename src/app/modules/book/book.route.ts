@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.get('/', BookController.getAllBooks);
 router.get('/latest-books', BookController.getLatestBooks);
+router.post('/add-book', BookController.addNewBook);
 
 export const BookRoutes = router;

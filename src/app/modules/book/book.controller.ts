@@ -27,7 +27,19 @@ const getLatestBooks = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
+const addNewBook = catchAsync(async (req: Request, res: Response) => {
+  const bookData: IBook = req.body;
+  await BookService.addNewBook(bookData);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: 'Book added successfully !',
+  });
+});
+
 export const BookController = {
   getAllBooks,
   getLatestBooks,
+  addNewBook,
 };
