@@ -18,6 +18,10 @@ const BookSchema = new Schema<IBook, BookModel>({
     type: Date,
     required: true,
   },
+  addedBy: {
+    type: String,
+    required: true,
+  },
   reviews: {
     type: [String],
     required: true,
