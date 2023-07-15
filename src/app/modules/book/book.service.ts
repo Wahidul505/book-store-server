@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-dgetAllFacultiesisable @typescript-eslint/no-explicit-any */
 
-import httpStatus from 'http-status';
-import ApiError from '../../../errors/ApiError';
-import { checkDateFormat } from '../../../shared/checkDateFormat';
 import { IBook } from './book.interface';
 import { Book } from './book.model';
 
@@ -17,21 +14,20 @@ const getLatestBooks = async (): Promise<IBook[]> => {
   return books;
 };
 
+const getSingleBook = async (id: string): Promise<IBook | null> => {
+  const book = Book.findById(id);
+  return book;
+};
+
 const addNewBook = async (payload: IBook): Promise<void> => {
   if (payload) {
-    if (checkDateFormat(payload.publicationDate)) {
-      await Book.create(payload);
-    } else {
-      throw new ApiError(
-        httpStatus.BAD_REQUEST,
-        'Provide accurate date formate -> (dd-mm-yyyy)'
-      );
-    }
+    await Book.create(payload);
   }
 };
 
 export const BookService = {
   getAllBooks,
   getLatestBooks,
+  getSingleBook,
   addNewBook,
 };
