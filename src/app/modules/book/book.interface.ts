@@ -9,4 +9,8 @@ export type IBook = {
   reviews: string[];
 };
 
+export type IBookReview = {
+  review: string;
+};
+
 export type BookModel = Model<IBook, Record<string, unknown>>;
