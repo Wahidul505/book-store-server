@@ -3,7 +3,7 @@ import { ReadingStatusController } from './readingStatus.controller';
 
 const router = express.Router();
 
-router.patch('/', ReadingStatusController.addBook);
-router.get('/', ReadingStatusController.getBook);
+router.patch('/', ReadingStatusController.changeStatus);
+router.get('/', ReadingStatusController.getStatus);
 
 export const ReadingStatusRoutes = router;

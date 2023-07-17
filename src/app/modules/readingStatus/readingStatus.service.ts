@@ -7,7 +7,7 @@ import { Book } from '../book/book.model';
 import { IReadingStatus, IStatus } from './readingStatus.interface';
 import { ReadingStatus } from './readingStatus.model';
 
-const addBook = async (
+const changeStatus = async (
   id: string,
   status: IStatus,
   user: string
@@ -62,7 +62,7 @@ const addBook = async (
   }
 };
 
-const getBook = async (user: string): Promise<IReadingStatus> => {
+const getStatus = async (user: string): Promise<IReadingStatus> => {
   const data = await ReadingStatus.findOne({ user: user }).populate({
     path: 'bookList',
     populate: [
@@ -78,6 +78,6 @@ const getBook = async (user: string): Promise<IReadingStatus> => {
 };
 
 export const ReadingStatusService = {
-  addBook,
-  getBook,
+  changeStatus,
+  getStatus,
 };

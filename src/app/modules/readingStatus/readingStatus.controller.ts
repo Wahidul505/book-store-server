@@ -5,10 +5,11 @@ import sendResponse from '../../../shared/sendResponse';
 import { IReadingStatus, IStatus } from './readingStatus.interface';
 import { ReadingStatusService } from './readingStatus.service';
 
-const addBook = catchAsync(async (req: Request, res: Response) => {
+const changeStatus = catchAsync(async (req: Request, res: Response) => {
   const { id, status } = req.query;
   const user = req.headers.authorization;
-  await ReadingStatusService.addBook(
+  console.log(user, id, status);
+  await ReadingStatusService.changeStatus(
     id as string,
     status as IStatus,
     user as string
@@ -19,9 +20,9 @@ const addBook = catchAsync(async (req: Request, res: Response) => {
     message: `Current book status: ${status}`,
   });
 });
-const getBook = catchAsync(async (req: Request, res: Response) => {
+const getStatus = catchAsync(async (req: Request, res: Response) => {
   const user = req.headers.authorization;
-  const data = await ReadingStatusService.getBook(user as string);
+  const data = await ReadingStatusService.getStatus(user as string);
   sendResponse<IReadingStatus>(res, {
     statusCode: httpStatus.OK,
     success: true,
@@ -30,4 +31,4 @@ const getBook = catchAsync(async (req: Request, res: Response) => {
   });
 });
 
-export const ReadingStatusController = { addBook, getBook };
+export const ReadingStatusController = { changeStatus, getStatus };
