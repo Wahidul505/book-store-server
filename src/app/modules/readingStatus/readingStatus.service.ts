@@ -4,7 +4,7 @@
 import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import { Book } from '../book/book.model';
-import { IStatus } from './readingStatus.interface';
+import { IReadingStatus, IStatus } from './readingStatus.interface';
 import { ReadingStatus } from './readingStatus.model';
 
 const addBook = async (
@@ -62,16 +62,22 @@ const addBook = async (
   }
 };
 
-// const getWishList = async (user: string): Promise<IWishList> => {
-//   const wishList = await WishList.findOne({ user: user }).populate({
-//     path: 'wishList',
-//   });
-//   if (!wishList) {
-//     throw new ApiError(httpStatus.BAD_REQUEST, 'User not found');
-//   }
-//   return wishList;
-// };
+const getBook = async (user: string): Promise<IReadingStatus> => {
+  const data = await ReadingStatus.findOne({ user: user }).populate({
+    path: 'bookList',
+    populate: [
+      {
+        path: 'book',
+      },
+    ],
+  });
+  if (!data) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'User not found');
+  }
+  return data;
+};
 
 export const ReadingStatusService = {
   addBook,
+  getBook,
 };

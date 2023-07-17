@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import httpStatus from 'http-status';
 import catchAsync from '../../../shared/catchAsync';
 import sendResponse from '../../../shared/sendResponse';
-import { IStatus } from './readingStatus.interface';
+import { IReadingStatus, IStatus } from './readingStatus.interface';
 import { ReadingStatusService } from './readingStatus.service';
 
 const addBook = catchAsync(async (req: Request, res: Response) => {
@@ -19,5 +19,15 @@ const addBook = catchAsync(async (req: Request, res: Response) => {
     message: `Current book status: ${status}`,
   });
 });
+const getBook = catchAsync(async (req: Request, res: Response) => {
+  const user = req.headers.authorization;
+  const data = await ReadingStatusService.getBook(user as string);
+  sendResponse<IReadingStatus>(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: `Book list retrieved successfully!`,
+    data,
+  });
+});
 
-export const ReadingStatusController = { addBook };
+export const ReadingStatusController = { addBook, getBook };
