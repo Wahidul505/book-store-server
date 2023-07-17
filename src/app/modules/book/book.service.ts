@@ -24,6 +24,8 @@ const getSingleBook = async (id: string): Promise<IBook | null> => {
 const addNewBook = async (payload: IBook): Promise<void> => {
   if (payload) {
     await Book.create(payload);
+  } else {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Something went wrong');
   }
 };
 

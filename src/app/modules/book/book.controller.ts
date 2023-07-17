@@ -53,7 +53,6 @@ const addNewBook = catchAsync(async (req: Request, res: Response) => {
 const postReview = catchAsync(async (req: Request, res: Response) => {
   const id: string = req.params.id;
   const reviewData: IBookReview = req.body;
-  console.log(reviewData, id);
   await BookService.postReview(id, reviewData);
 
   sendResponse(res, {
